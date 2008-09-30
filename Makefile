@@ -10,3 +10,6 @@ VPATH := $(dirs)
 
 %.o: %.c
 	gcc -c $< $(addprefix -I, $(dirs)) -D DEBUG
+
+clean:
+	rm *.o lastfm.exe

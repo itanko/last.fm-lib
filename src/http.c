@@ -6,8 +6,8 @@
 
 SOCKET sock;
 
-char *buff;
-char *zbuf; // zeroed buff
+char buff[1024];
+char zbuf[1024]; // zeroed buff
 
 char * host;
 
@@ -28,12 +28,17 @@ uint parse_url(struct url * s) {
 	return 0;
 }
 
+struct url * _chkurl(struct url ** u)
+{
+	if((*u)->host == 0) {
+		parse_url(*u);	
+    	}
+	return *u;
+}
+
 int httpconnect(char * server, int port)
 {
 	uint res;
-
-	buff = malloc(1024);
-	zbuf = malloc(1024);
 
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if((sock == INVALID_SOCKET) | (sock == 0)) {
@@ -99,22 +104,20 @@ char * httpreadln() {
 	return buff;
 }
 
-_http_sendbuff(u, proc, buff)
+uint _http_sendbuff(u, proc, cookie, buff)
 struct url * u;
 void * proc;
+uint cookie;
 char * buff; 
 {
-	if(u->host == 0) {
-		parse_url(u);	
-    	}
-
-	httpconnect(host, port);
-	result = send(sock, buff, strlen(buff), 0);
+	httpconnect(u->host, u->port);
+	send(sock, buff, strlen(buff), 0);
 	#ifdef DEBUG
 		printf("Sent: %s\n", buff);
 	#endif
-        (* (msgproc_proto) proc) (0, 0);
+        uint r = (* (msgproc_proto) proc) (cookie);
 	httpclose();
+	return r;
 }
 
 /* Add */
@@ -123,7 +126,7 @@ void httpskiphdr() {
 	while(*httpreadln() != 13) {}
 }
 
-uint __cdecl httpost(struct url * u, const char * format, ...)
+uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...)
 {
     uint result;
     va_list argptr;
@@ -132,13 +135,14 @@ uint __cdecl httpost(struct url * u, const char * format, ...)
     result = wvsprintf( buff, format, argptr );
     va_end( argptr );
 
-    result = wvsprintf( zbuf, "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\n\n%s\n\n", path, host, strlen(zbuf), zbuf);
+    _chkurl(&u);
 
-    result = _http_sendbuff(u, proc, zbuf);
-    return result;
+    result = sprintf( zbuf, "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\n\n%s\n\n", u->path, u->host, strlen(buff), buff);
+
+    return _http_sendbuff(u, proc, cookie, zbuf);
 }
 
-uint __cdecl httpget(struct url * u, const char * format, ...)
+uint __cdecl httpget(struct url * u, void * proc, uint cookie, const char * format, ...)
 {
     uint result;
     va_list argptr;
@@ -147,8 +151,9 @@ uint __cdecl httpget(struct url * u, const char * format, ...)
     result = wvsprintf( buff, format, argptr );
     va_end( argptr );
 
-    result = wvsprintf( zbuf, "GET /%s HTTP/1.1\nHost: %s\n\n", zbuf, host);
+    _chkurl(&u);
 
-    result = _http_sendbuff(u, proc, zbuf);
-    return result;
+    result = sprintf( zbuf, "GET /%s%s HTTP/1.1\nHost: %s\n\n", u->path, buff, u->host);
+
+    return _http_sendbuff(u, proc, cookie, zbuf);
 }

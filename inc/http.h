@@ -6,9 +6,9 @@ struct url {
 	char * path;
 };
 
-typedef unsigned int (*msgproc_proto) (unsigned int, void*, unsigned int);
+typedef unsigned int (*msgproc_proto) (unsigned int);
 
-int httpconnect(char * server, int port);
-int __cdecl httprintf(const char * fmt, ...);
+void httpskiphdr();
 char * httpreadln();
-void httpclose();
+uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...);
+uint __cdecl httpget(struct url * u, void * proc, uint cookie, const char * format, ...);

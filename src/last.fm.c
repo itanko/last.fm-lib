@@ -9,12 +9,26 @@
 
 #define MAX_TIMESTAMP_SIZE 64
 #define MAX_AUTH_TOKEN     64
+#define MAX_STR		   256
+
+typedef unsigned int (*cookie_proto) ();
 
 char * auth_token = 0;
-struct lastfm_url now_playing = { 0, 0, 0 };
-struct lastfm_url submit = { 0, 0, 0 };
+struct url as = {0, 0, 0, 0};
+struct url np = {0, 0, 0, 0};
+struct url sb = {0, 0, 0, 0};
 
-uint __stdcall RtlTimeToSecondsSince1970(uvlong * Time, uint * ElapsedSeconds);
+uint _handle_handshake();
+uint _handle_std();
+
+char * _chk(char ** s)
+{
+	if(!*s) {
+		*s = malloc(MAX_STR);
+		memset(*s, 0, MAX_STR);
+	}
+	return *s;
+}
 
 static char * md5(char *in)
 {
@@ -47,75 +61,64 @@ static char * md5(char *in)
   return tmp;
 }
 
-uint parse_url(char * url, struct lastfm_url * s) {
-	strcpy(s->srcstr, url);
-	s->host = strstr(s->srcstr, "://") + 3;
-	char * p = s->host;
-	while(*p != ':') { p++; } *p = 0;
-	char * n = ++p;
-	while(*p != '/') { p++; } *p = 0;
-	s->port = atoi(n);
-	s->path = ++p;
-	#ifdef DEBUG
-		printf("%s, %i, %s\n", s->host, s->port, s->path);
-	#endif
-	return 0;
+uint _lastfm_handleresp(uint cookie) 
+{
+	httpskiphdr();
+	char * r = httpreadln();
+	if(strstr(r, "OK")) {
+		return (* (cookie_proto) cookie) ();			
+	} else if (strcmp(r, "BANNED")) {
+	} else if (strcmp(r, "BADTIME")) {
+	} else if (strstr(r, "FAIL")) {
+	} else {
+		// hard failure
+		return 666;
+	}
 }
 
-uint handshake() {
-	if(!auth_token) { auth_token = malloc(MAX_AUTH_TOKEN); }
-	if(!now_playing.srcstr) { now_playing.srcstr = malloc(MAX_AUTH_TOKEN); }
-	if(!submit.srcstr) { submit.srcstr = malloc(MAX_AUTH_TOKEN); }
+uint handshake() 
+{
 	time_t t = time(0);
+
 	char * p = md5("akdpd29");
 	itoa(t, p + strlen(p), 10);
 	char * h = md5(p);
-	#ifdef DEBUG
-		printf("pass_md5:  %s\ntimestamp: %i\n",
-		p, t);
-	#endif
-	httpconnect("post.audioscrobbler.com", 80);
-	httprintf("GET /?hs=true&p=1.2&c=%s&v=%s&u=%s&t=%lu&a=%s HTTP/1.1\nHost: post.audioscrobbler.com\n\n",
-			  "tst", "1.0", "itanko_bu", t, h);
-	httpskiphdr();
-	char * response = httpreadln();
-	if(strstr(response, "OK")) {
-		strcpy(auth_token, httpreadln());
-		parse_url(httpreadln(), &now_playing);
-		parse_url(httpreadln(), &submit);
-	} else if (strcmp(response, "BANNED")) {
-	} else if (strcmp(response, "BADTIME")) {
-	} else if (strcmp(response, "BANNED")) {
-	} else if (strstr(response, "FAIL")) {
-	} else {
-		// hard failure
-	}
-	httpclose();
+
+	strcpy(_chk(&as.srcstr), "http://post.audioscrobbler.com:80/?"); 
+	httpget(&as, &_lastfm_handleresp, &_handle_handshake, 
+		"hs=true&p=1.2&c=%s&v=%s&u=%s&t=%lu&a=%s",
+		"tst", "1.0", "itanko_bu", t, h); 
 	return 0;
 }
 
-uint send_now_playing(struct lastfm_songinfo * s)
+
+
+uint lfm_now_playing(struct lastfm_songinfo * s)
 {
-	httpconnect(now_playing.host, now_playing.port);
-	char * npb = malloc(1024);
-	sprintf(npb, "s=%s&a=%s&t=%s",  auth_token, "AFX", "Gib-Gib");
-	httprintf("POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\n\n%s\n\n", now_playing.path, now_playing.host, strlen(npb), npb);
-	httpskiphdr();
-	char * response = httpreadln();
-	if(strstr(response, "OK")) {
-		printf("ok\n");
-	}
+	if(!auth_token) 
+		handshake();
+
+	return 
+	httpost(&np, &_lastfm_handleresp, &_handle_std,
+		 "s=%s&a=%s&t=%s", auth_token, "AFX", "Gib-Gib");	
 }
 
-uint send_submit(struct lastfm_songinfo * s)
+uint lfm_submit(struct lastfm_songinfo * s)
 {
-	httpconnect(now_playing.host, now_playing.port);
-	char * npb = malloc(1024);
-	sprintf(npb, "s=%s&a[0]=%s&t[0]=%s&i=%lu",  auth_token, "AFX", "Gib-Gib", time(0)-60);
-	httprintf("POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\n\n%s\n\n", now_playing.path, now_playing.host, strlen(npb), npb);
-	httpskiphdr();
-	char * response = httpreadln();
-	if(strstr(response, "OK")) {
-		printf("ok\n");
-	}
+	if(!auth_token) 
+		handshake();
+
+	return
+	httpost(&np, &_lastfm_handleresp, &_handle_std,
+		 "s=%s&a[0]=%s&t[0]=%s&i=%lu",  auth_token, "AFX", "Gib-Gib", time(0)-60);
 }
+
+uint _handle_handshake()
+{
+	strcpy(_chk(&auth_token), httpreadln());
+	strcpy(_chk(&np.srcstr), httpreadln());
+	strcpy(_chk(&sb.srcstr), httpreadln());
+	return 0;
+}
+
+uint _handle_std() { return 1; }
