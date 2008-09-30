@@ -1,0 +1,15 @@
+c:\projects\last.fm\lcc\__check_http.c:
+Warning lcc\__check_http.c: 25  missing return value
+Error lcc\__check_http.c: 28  undeclared identifier 'irc_server'
+Error lcc\__check_http.c: 28  type error in argument 1 to `gethostbyname'; found 'int' expected 'pointer to char'
+Warning lcc\__check_http.c: 40  Comparison of unsigned with negative constant
+Warning lcc\__check_http.c: 28  possible usage of irc_server before definition
+Warning lcc\__check_http.c: 52  missing return value
+Warning lcc\__check_http.c: 54  old-style function definition for 'httpclose'
+Warning lcc\__check_http.c: 54  missing prototype for 'httpclose'
+Warning lcc\__check_http.c: 58  old-style function definition for 'httpreadln'
+Warning lcc\__check_http.c: 58  missing prototype for 'httpreadln'
+Warning lcc\__check_http.c: 62  Comparison of unsigned with negative constant
+Warning lcc\__check_http.c: 68  missing return value
+Warning lcc\__check_http.c: 92  missing prototype for USED
+Warning lcc\__check_http.c: 92  Missing prototype for 'USED'
