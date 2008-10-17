@@ -137,7 +137,7 @@ uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * form
 
     _chkurl(&u);
 
-    result = sprintf( zbuf, "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\n\n%s\n\n", u->path, u->host, strlen(buff), buff);
+    result = sprintf( zbuf, "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\nContent-Type: application/x-www-form-urlencoded\n\n%s\n\n", u->path, u->host, strlen(buff), buff);
 
     return _http_sendbuff(u, proc, cookie, zbuf);
 }

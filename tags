@@ -4,91 +4,50 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.7	//
-BUFF_SIZE	.\t\main.c	58;"	d	file:
 BYTE_ORDER	.\src\md5.c	57;"	d	file:
 BYTE_ORDER	.\src\md5.c	59;"	d	file:
 BYTE_ORDER	.\src\md5.c	61;"	d	file:
-BYTE_ORDER	.\t\md5.c	57;"	d	file:
-BYTE_ORDER	.\t\md5.c	59;"	d	file:
-BYTE_ORDER	.\t\md5.c	61;"	d	file:
-DSP_About	.\t\main.c	/^static void WINAPI DSP_About(HWND win)$/;"	f	file:
-DSP_Config	.\t\main.c	/^static void WINAPI DSP_Config(void *inst, HWND win)$/;"	f	file:
-DSP_Free	.\t\main.c	/^static void WINAPI DSP_Free(void *inst)$/;"	f	file:
-DSP_GetConfig	.\t\main.c	/^static DWORD WINAPI DSP_GetConfig(void *inst, void *config)$/;"	f	file:
-DSP_GetDescription	.\t\main.c	/^static const char *WINAPI DSP_GetDescription(void *inst)$/;"	f	file:
-DSP_New	.\t\main.c	/^static void *WINAPI DSP_New()$/;"	f	file:
-DSP_NewTrack	.\t\main.c	/^static void WINAPI DSP_NewTrack(void *inst, char *file)$/;"	f	file:
-DSP_Process	.\t\main.c	/^static DWORD WINAPI DSP_Process(void *inst, float *srce, DWORD count) {return 0;};$/;"	f	file:
-DSP_Reset	.\t\main.c	/^static void WINAPI DSP_Reset(void *inst) {};$/;"	f	file:
-DSP_SetConfig	.\t\main.c	/^static BOOL WINAPI DSP_SetConfig(void *inst, void *config, DWORD size)$/;"	f	file:
-DSP_SetFormat	.\t\main.c	/^static void WINAPI DSP_SetFormat(void *inst, const XMPFORMAT *form) {};$/;"	f	file:
+E_AUTH	.\inc\last.fm.h	5;"	d
+E_BAN	.\inc\last.fm.h	7;"	d
+E_EPIC	.\inc\last.fm.h	10;"	d
+E_FAIL	.\inc\last.fm.h	9;"	d
+E_OK	.\inc\last.fm.h	4;"	d
+E_SESSION	.\inc\last.fm.h	6;"	d
+E_TIME	.\inc\last.fm.h	8;"	d
+E_UNKN	.\inc\last.fm.h	11;"	d
 F	.\src\md5.c	202;"	d	file:
-F	.\t\md5.c	202;"	d	file:
 FPAINEX	.\inc\u.h	39;"	d
-FPAINEX	.\t\u.h	39;"	d
 FPAINVAL	.\inc\u.h	43;"	d
-FPAINVAL	.\t\u.h	43;"	d
 FPAOVFL	.\inc\u.h	40;"	d
-FPAOVFL	.\t\u.h	40;"	d
 FPAUNFL	.\inc\u.h	41;"	d
-FPAUNFL	.\t\u.h	41;"	d
 FPAZDIV	.\inc\u.h	42;"	d
-FPAZDIV	.\t\u.h	42;"	d
 FPINEX	.\inc\u.h	24;"	d
-FPINEX	.\t\u.h	24;"	d
 FPINVAL	.\inc\u.h	28;"	d
-FPINVAL	.\t\u.h	28;"	d
 FPOVFL	.\inc\u.h	26;"	d
-FPOVFL	.\t\u.h	26;"	d
 FPPDBL	.\inc\u.h	36;"	d
-FPPDBL	.\t\u.h	36;"	d
 FPPEXT	.\inc\u.h	34;"	d
-FPPEXT	.\t\u.h	34;"	d
 FPPMASK	.\inc\u.h	37;"	d
-FPPMASK	.\t\u.h	37;"	d
 FPPSGL	.\inc\u.h	35;"	d
-FPPSGL	.\t\u.h	35;"	d
 FPRMASK	.\inc\u.h	33;"	d
-FPRMASK	.\t\u.h	33;"	d
 FPRNINF	.\inc\u.h	32;"	d
-FPRNINF	.\t\u.h	32;"	d
 FPRNR	.\inc\u.h	29;"	d
-FPRNR	.\t\u.h	29;"	d
 FPRPINF	.\inc\u.h	31;"	d
-FPRPINF	.\t\u.h	31;"	d
 FPRZ	.\inc\u.h	30;"	d
-FPRZ	.\t\u.h	30;"	d
 FPUNFL	.\inc\u.h	25;"	d
-FPUNFL	.\t\u.h	25;"	d
 FPZDIV	.\inc\u.h	27;"	d
-FPZDIV	.\t\u.h	27;"	d
 FPdbleword	.\inc\u.h	/^typedef union FPdbleword FPdbleword;$/;"	t	typeref:union:FPdbleword
 FPdbleword	.\inc\u.h	/^union FPdbleword$/;"	u
-FPdbleword	.\t\u.h	/^typedef union FPdbleword FPdbleword;$/;"	t	typeref:union:FPdbleword
-FPdbleword	.\t\u.h	/^union FPdbleword$/;"	u
 G	.\src\md5.c	228;"	d	file:
-G	.\t\md5.c	228;"	d	file:
 H	.\src\md5.c	254;"	d	file:
-H	.\t\md5.c	254;"	d	file:
 I	.\src\md5.c	280;"	d	file:
-I	.\t\md5.c	280;"	d	file:
 JMPBUFDPC	.\inc\u.h	16;"	d
-JMPBUFDPC	.\t\u.h	16;"	d
 JMPBUFPC	.\inc\u.h	15;"	d
-JMPBUFPC	.\t\u.h	15;"	d
 JMPBUFSP	.\inc\u.h	14;"	d
-JMPBUFSP	.\t\u.h	14;"	d
 MAX_AUTH_TOKEN	.\src\last.fm.c	11;"	d	file:
-MAX_AUTH_TOKEN	.\t\last.fm.c	12;"	d	file:
 MAX_STR	.\src\last.fm.c	12;"	d	file:
 MAX_TIMESTAMP_SIZE	.\src\last.fm.c	10;"	d	file:
-MAX_TIMESTAMP_SIZE	.\t\last.fm.c	11;"	d	file:
-NEFLIB_C	.\t\neflib.h	7;"	d
-PostTrackInfo	.\t\main.c	/^static DWORD __stdcall PostTrackInfo(LPVOID param)$/;"	f	file:
 ROTATE_LEFT	.\src\md5.c	197;"	d	file:
-ROTATE_LEFT	.\t\md5.c	197;"	d	file:
 Rune	.\inc\u.h	/^typedef	ushort		Rune;$/;"	t
-Rune	.\t\u.h	/^typedef	ushort		Rune;$/;"	t
 SET	.\src\md5.c	203;"	d	file:
 SET	.\src\md5.c	223;"	d	file:
 SET	.\src\md5.c	229;"	d	file:
@@ -97,315 +56,150 @@ SET	.\src\md5.c	255;"	d	file:
 SET	.\src\md5.c	275;"	d	file:
 SET	.\src\md5.c	281;"	d	file:
 SET	.\src\md5.c	301;"	d	file:
-SET	.\t\md5.c	203;"	d	file:
-SET	.\t\md5.c	223;"	d	file:
-SET	.\t\md5.c	229;"	d	file:
-SET	.\t\md5.c	249;"	d	file:
-SET	.\t\md5.c	255;"	d	file:
-SET	.\t\md5.c	275;"	d	file:
-SET	.\t\md5.c	281;"	d	file:
-SET	.\t\md5.c	301;"	d	file:
 T1	.\src\md5.c	65;"	d	file:
-T1	.\t\md5.c	65;"	d	file:
 T10	.\src\md5.c	74;"	d	file:
-T10	.\t\md5.c	74;"	d	file:
 T11	.\src\md5.c	75;"	d	file:
-T11	.\t\md5.c	75;"	d	file:
 T12	.\src\md5.c	76;"	d	file:
-T12	.\t\md5.c	76;"	d	file:
 T13	.\src\md5.c	77;"	d	file:
-T13	.\t\md5.c	77;"	d	file:
 T14	.\src\md5.c	78;"	d	file:
-T14	.\t\md5.c	78;"	d	file:
 T15	.\src\md5.c	79;"	d	file:
-T15	.\t\md5.c	79;"	d	file:
 T16	.\src\md5.c	80;"	d	file:
-T16	.\t\md5.c	80;"	d	file:
 T17	.\src\md5.c	81;"	d	file:
-T17	.\t\md5.c	81;"	d	file:
 T18	.\src\md5.c	82;"	d	file:
-T18	.\t\md5.c	82;"	d	file:
 T19	.\src\md5.c	83;"	d	file:
-T19	.\t\md5.c	83;"	d	file:
 T2	.\src\md5.c	66;"	d	file:
-T2	.\t\md5.c	66;"	d	file:
 T20	.\src\md5.c	84;"	d	file:
-T20	.\t\md5.c	84;"	d	file:
 T21	.\src\md5.c	85;"	d	file:
-T21	.\t\md5.c	85;"	d	file:
 T22	.\src\md5.c	86;"	d	file:
-T22	.\t\md5.c	86;"	d	file:
 T23	.\src\md5.c	87;"	d	file:
-T23	.\t\md5.c	87;"	d	file:
 T24	.\src\md5.c	88;"	d	file:
-T24	.\t\md5.c	88;"	d	file:
 T25	.\src\md5.c	89;"	d	file:
-T25	.\t\md5.c	89;"	d	file:
 T26	.\src\md5.c	90;"	d	file:
-T26	.\t\md5.c	90;"	d	file:
 T27	.\src\md5.c	91;"	d	file:
-T27	.\t\md5.c	91;"	d	file:
 T28	.\src\md5.c	92;"	d	file:
-T28	.\t\md5.c	92;"	d	file:
 T29	.\src\md5.c	93;"	d	file:
-T29	.\t\md5.c	93;"	d	file:
 T3	.\src\md5.c	67;"	d	file:
-T3	.\t\md5.c	67;"	d	file:
 T30	.\src\md5.c	94;"	d	file:
-T30	.\t\md5.c	94;"	d	file:
 T31	.\src\md5.c	95;"	d	file:
-T31	.\t\md5.c	95;"	d	file:
 T32	.\src\md5.c	96;"	d	file:
-T32	.\t\md5.c	96;"	d	file:
 T33	.\src\md5.c	97;"	d	file:
-T33	.\t\md5.c	97;"	d	file:
 T34	.\src\md5.c	98;"	d	file:
-T34	.\t\md5.c	98;"	d	file:
 T35	.\src\md5.c	99;"	d	file:
-T35	.\t\md5.c	99;"	d	file:
 T36	.\src\md5.c	100;"	d	file:
-T36	.\t\md5.c	100;"	d	file:
 T37	.\src\md5.c	101;"	d	file:
-T37	.\t\md5.c	101;"	d	file:
 T38	.\src\md5.c	102;"	d	file:
-T38	.\t\md5.c	102;"	d	file:
 T39	.\src\md5.c	103;"	d	file:
-T39	.\t\md5.c	103;"	d	file:
 T4	.\src\md5.c	68;"	d	file:
-T4	.\t\md5.c	68;"	d	file:
 T40	.\src\md5.c	104;"	d	file:
-T40	.\t\md5.c	104;"	d	file:
 T41	.\src\md5.c	105;"	d	file:
-T41	.\t\md5.c	105;"	d	file:
 T42	.\src\md5.c	106;"	d	file:
-T42	.\t\md5.c	106;"	d	file:
 T43	.\src\md5.c	107;"	d	file:
-T43	.\t\md5.c	107;"	d	file:
 T44	.\src\md5.c	108;"	d	file:
-T44	.\t\md5.c	108;"	d	file:
 T45	.\src\md5.c	109;"	d	file:
-T45	.\t\md5.c	109;"	d	file:
 T46	.\src\md5.c	110;"	d	file:
-T46	.\t\md5.c	110;"	d	file:
 T47	.\src\md5.c	111;"	d	file:
-T47	.\t\md5.c	111;"	d	file:
 T48	.\src\md5.c	112;"	d	file:
-T48	.\t\md5.c	112;"	d	file:
 T49	.\src\md5.c	113;"	d	file:
-T49	.\t\md5.c	113;"	d	file:
 T5	.\src\md5.c	69;"	d	file:
-T5	.\t\md5.c	69;"	d	file:
 T50	.\src\md5.c	114;"	d	file:
-T50	.\t\md5.c	114;"	d	file:
 T51	.\src\md5.c	115;"	d	file:
-T51	.\t\md5.c	115;"	d	file:
 T52	.\src\md5.c	116;"	d	file:
-T52	.\t\md5.c	116;"	d	file:
 T53	.\src\md5.c	117;"	d	file:
-T53	.\t\md5.c	117;"	d	file:
 T54	.\src\md5.c	118;"	d	file:
-T54	.\t\md5.c	118;"	d	file:
 T55	.\src\md5.c	119;"	d	file:
-T55	.\t\md5.c	119;"	d	file:
 T56	.\src\md5.c	120;"	d	file:
-T56	.\t\md5.c	120;"	d	file:
 T57	.\src\md5.c	121;"	d	file:
-T57	.\t\md5.c	121;"	d	file:
 T58	.\src\md5.c	122;"	d	file:
-T58	.\t\md5.c	122;"	d	file:
 T59	.\src\md5.c	123;"	d	file:
-T59	.\t\md5.c	123;"	d	file:
 T6	.\src\md5.c	70;"	d	file:
-T6	.\t\md5.c	70;"	d	file:
 T60	.\src\md5.c	124;"	d	file:
-T60	.\t\md5.c	124;"	d	file:
 T61	.\src\md5.c	125;"	d	file:
-T61	.\t\md5.c	125;"	d	file:
 T62	.\src\md5.c	126;"	d	file:
-T62	.\t\md5.c	126;"	d	file:
 T63	.\src\md5.c	127;"	d	file:
-T63	.\t\md5.c	127;"	d	file:
 T64	.\src\md5.c	128;"	d	file:
-T64	.\t\md5.c	128;"	d	file:
 T7	.\src\md5.c	71;"	d	file:
-T7	.\t\md5.c	71;"	d	file:
 T8	.\src\md5.c	72;"	d	file:
-T8	.\t\md5.c	72;"	d	file:
 T9	.\src\md5.c	73;"	d	file:
-T9	.\t\md5.c	73;"	d	file:
 T_MASK	.\src\md5.c	64;"	d	file:
-T_MASK	.\t\md5.c	64;"	d	file:
-USED	.\t\http.c	/^void USED() {}$/;"	f
-__declspec	.\t\main.c	/^XMPDSP *APIENTRY __declspec(dllexport)$/;"	f
 _chk	.\src\last.fm.c	/^char * _chk(char ** s)$/;"	f
+_chkint	.\src\last.fm.c	15;"	d	file:
+_chkstr	.\src\last.fm.c	14;"	d	file:
 _chkurl	.\src\http.c	/^struct url * _chkurl(struct url ** u)$/;"	f
 _handle_handshake	.\src\last.fm.c	/^uint _handle_handshake()$/;"	f
 _handle_std	.\src\last.fm.c	/^uint _handle_std() { return 1; }$/;"	f
 _http_sendbuff	.\src\http.c	/^uint _http_sendbuff(u, proc, cookie, buff)$/;"	f
 _lastfm_handleresp	.\src\last.fm.c	/^uint _lastfm_handleresp(uint cookie) $/;"	f
-_stackprobe	.\t\neflib.c	/^void _stackprobe(int depth) {$/;"	f
 abcd	.\inc\md5.h	/^    md5_word_t abcd[4];		\/* digest buffer *\/$/;"	m	struct:md5_state_s
-abcd	.\t\md5.h	/^    md5_word_t abcd[4];		\/* digest buffer *\/$/;"	m	struct:md5_state_s
 album	.\inc\last.fm.h	/^	char * album;$/;"	m	struct:lastfm_songinfo
-album	.\t\last.fm.h	/^	char * album;$/;"	m	struct:lastfm_songinfo
 artist	.\inc\last.fm.h	/^	char * artist; \/\/ *$/;"	m	struct:lastfm_songinfo
-artist	.\t\last.fm.h	/^	char * artist; \/\/ *$/;"	m	struct:lastfm_songinfo
 as	.\src\last.fm.c	/^struct url as = {0, 0, 0, 0};$/;"	v	typeref:struct:url
-atoi	.\t\neflib.c	/^int atoi(const char * c) {$/;"	f
 auth_token	.\src\last.fm.c	/^char * auth_token = 0;$/;"	v
-auth_token	.\t\last.fm.c	/^char * auth_token = 0;$/;"	v
 buf	.\inc\md5.h	/^    md5_byte_t buf[64];		\/* accumulate block *\/$/;"	m	struct:md5_state_s
-buf	.\t\md5.h	/^    md5_byte_t buf[64];		\/* accumulate block *\/$/;"	m	struct:md5_state_s
 buff	.\src\http.c	/^char buff[1024];$/;"	v
-buff	.\t\http.c	/^char *buff;$/;"	v
-buff	.\t\main.c	/^char *buff;$/;"	v
 cookie_proto	.\src\last.fm.c	/^typedef unsigned int (*cookie_proto) ();$/;"	t	file:
 count	.\inc\md5.h	/^    md5_word_t count[2];	\/* message length in bits, lsw first *\/$/;"	m	struct:md5_state_s
-count	.\t\md5.h	/^    md5_word_t count[2];	\/* message length in bits, lsw first *\/$/;"	m	struct:md5_state_s
-dll_main	.\t\main.c	/^BOOL __stdcall dll_main(HINSTANCE hDLLInst, DWORD fdwReason, LPVOID lpvReserved)$/;"	f
-dsp	.\t\main.c	/^static XMPDSP dsp = {$/;"	v	file:
-exit	.\t\neflib.h	9;"	d
-free	.\t\neflib.h	20;"	d
+fails	.\src\last.fm.c	/^uint fails = 0;$/;"	v
 handle	.\inc\u.h	/^typedef void * handle;$/;"	t
-handle	.\t\u.h	/^typedef void * handle;$/;"	t
 handshake	.\src\last.fm.c	/^uint handshake() $/;"	f
-handshake	.\t\last.fm.c	/^uint handshake() {$/;"	f
 hi	.\inc\u.h	/^		ulong hi;$/;"	m	struct:FPdbleword::__anon1
-hi	.\t\u.h	/^		ulong hi;$/;"	m	struct:FPdbleword::__anon2
-hook	.\t\main.c	/^static HHOOK hook;$/;"	v	file:
 host	.\inc\http.h	/^	char * host;$/;"	m	struct:url
 host	.\src\http.c	/^char * host;$/;"	v
-host	.\t\last.fm.h	/^	char * host;$/;"	m	struct:lastfm_url
 httpclose	.\src\http.c	/^void httpclose() {$/;"	f
-httpclose	.\t\http.c	/^void httpclose() {$/;"	f
 httpconnect	.\src\http.c	/^int httpconnect(char * server, int port)$/;"	f
-httpconnect	.\t\http.c	/^int httpconnect(char * server, int port)$/;"	f
 httpget	.\src\http.c	/^uint __cdecl httpget(struct url * u, void * proc, uint cookie, const char * format, ...)$/;"	f
 httpost	.\src\http.c	/^uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...)$/;"	f
 httpreadln	.\src\http.c	/^char * httpreadln() {$/;"	f
-httpreadln	.\t\http.c	/^char * httpreadln() {$/;"	f
-httprintf	.\t\http.c	/^int __cdecl httprintf(const char * format, ...)$/;"	f
 httpskiphdr	.\src\http.c	/^void httpskiphdr() {$/;"	f
-httpskiphdr	.\t\http.c	/^void httpskiphdr() {$/;"	f
-hwnd_bot	.\t\main.c	/^static HANDLE hwnd_bot;$/;"	v	file:
-hwnd_xmp	.\t\main.c	/^static HANDLE hwnd_xmp;$/;"	v	file:
+intbuff	.\src\last.fm.c	/^char intbuff[12];$/;"	v
 jmp_buf	.\inc\u.h	/^typedef long		jmp_buf[2];$/;"	t
-jmp_buf	.\t\u.h	/^typedef long		jmp_buf[2];$/;"	t
+laste	.\src\last.fm.c	/^uint laste = 0;$/;"	v
 lastfm_songinfo	.\inc\last.fm.h	/^struct lastfm_songinfo {$/;"	s
-lastfm_songinfo	.\t\last.fm.h	/^struct lastfm_songinfo {$/;"	s
-lastfm_url	.\t\last.fm.h	/^struct lastfm_url {$/;"	s
 len	.\inc\last.fm.h	/^	unsigned int len;  \/\/ *?$/;"	m	struct:lastfm_songinfo
-len	.\t\last.fm.h	/^	unsigned int len;  \/\/ *?$/;"	m	struct:lastfm_songinfo
 lfm_now_playing	.\src\last.fm.c	/^uint lfm_now_playing(struct lastfm_songinfo * s)$/;"	f
-lfm_submit	.\src\last.fm.c	/^uint lfm_submit(struct lastfm_songinfo * s)$/;"	f
+lfm_submit	.\src\last.fm.c	/^uint lfm_submit(struct lastfm_songinfo ** s)$/;"	f
 lo	.\inc\u.h	/^		ulong lo;$/;"	m	struct:FPdbleword::__anon1
-lo	.\t\u.h	/^		ulong lo;$/;"	m	struct:FPdbleword::__anon2
-lookup_bot	.\t\main.c	/^static void lookup_bot() {$/;"	f	file:
 main	.\src\test.c	/^int main() {$/;"	f
-main	.\t\test.c	/^int main() {$/;"	f
-malloc	.\t\neflib.h	19;"	d
 mb_tid	.\inc\last.fm.h	/^	unsigned int mb_tid;$/;"	m	struct:lastfm_songinfo
-mb_tid	.\t\last.fm.h	/^	unsigned int mb_tid;$/;"	m	struct:lastfm_songinfo
 md5	.\src\last.fm.c	/^static char * md5(char *in)$/;"	f	file:
-md5	.\t\last.fm.c	/^static char * md5(char *in)$/;"	f	file:
 md5_INCLUDED	.\inc\md5.h	51;"	d
-md5_INCLUDED	.\t\md5.h	51;"	d
 md5_append	.\src\md5.c	/^md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes)$/;"	f
-md5_append	.\t\md5.c	/^md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes)$/;"	f
 md5_byte_t	.\inc\md5.h	/^typedef unsigned char md5_byte_t; \/* 8-bit byte *\/$/;"	t
-md5_byte_t	.\t\md5.h	/^typedef unsigned char md5_byte_t; \/* 8-bit byte *\/$/;"	t
 md5_finish	.\src\md5.c	/^md5_finish(md5_state_t *pms, md5_byte_t digest[16])$/;"	f
-md5_finish	.\t\md5.c	/^md5_finish(md5_state_t *pms, md5_byte_t digest[16])$/;"	f
 md5_init	.\src\md5.c	/^md5_init(md5_state_t *pms)$/;"	f
-md5_init	.\t\md5.c	/^md5_init(md5_state_t *pms)$/;"	f
 md5_process	.\src\md5.c	/^md5_process(md5_state_t *pms, const md5_byte_t *data \/*[64]*\/)$/;"	f	file:
-md5_process	.\t\md5.c	/^md5_process(md5_state_t *pms, const md5_byte_t *data \/*[64]*\/)$/;"	f	file:
 md5_state_s	.\inc\md5.h	/^typedef struct md5_state_s {$/;"	s
-md5_state_s	.\t\md5.h	/^typedef struct md5_state_s {$/;"	s
 md5_state_t	.\inc\md5.h	/^} md5_state_t;$/;"	t	typeref:struct:md5_state_s
-md5_state_t	.\t\md5.h	/^} md5_state_t;$/;"	t	typeref:struct:md5_state_s
 md5_word_t	.\inc\md5.h	/^typedef unsigned int md5_word_t; \/* 32-bit word *\/$/;"	t
-md5_word_t	.\t\md5.h	/^typedef unsigned int md5_word_t; \/* 32-bit word *\/$/;"	t
-memcmp	.\t\neflib.c	/^int memcmp(const void* s1, const void* s2,size_t n)$/;"	f
-memcpy	.\t\neflib.c	/^void *memcpy(void *dest, const void *src, size_t count)$/;"	f
 mpdigit	.\inc\u.h	/^typedef unsigned int	mpdigit;	\/* for \/sys\/include\/mp.h *\/$/;"	t
-mpdigit	.\t\u.h	/^typedef unsigned int	mpdigit;	\/* for \/sys\/include\/mp.h *\/$/;"	t
 msgproc_proto	.\inc\http.h	/^typedef unsigned int (*msgproc_proto) (unsigned int);$/;"	t
-mystrlen	.\t\neflib.c	/^int mystrlen(char* s) {$/;"	f
 nil	.\inc\u.h	1;"	d
-nil	.\t\u.h	1;"	d
-now_playing	.\t\last.fm.c	/^struct lastfm_url now_playing = { 0, 0, 0 };$/;"	v	typeref:struct:lastfm_url
 np	.\src\last.fm.c	/^struct url np = {0, 0, 0, 0};$/;"	v	typeref:struct:url
 num	.\inc\last.fm.h	/^	unsigned int num;$/;"	m	struct:lastfm_songinfo
-num	.\t\last.fm.h	/^	unsigned int num;$/;"	m	struct:lastfm_songinfo
 parse_url	.\src\http.c	/^uint parse_url(struct url * s) {$/;"	f
-parse_url	.\t\last.fm.c	/^uint parse_url(char * url, struct lastfm_url * s) {$/;"	f
 path	.\inc\http.h	/^	char * path;$/;"	m	struct:url
-path	.\t\last.fm.h	/^	char * path;$/;"	m	struct:lastfm_url
 port	.\inc\http.h	/^	unsigned short port;$/;"	m	struct:url
-port	.\t\last.fm.h	/^	unsigned short port;$/;"	m	struct:lastfm_url
-poster	.\t\main.c	/^static HANDLE poster;$/;"	v	file:
-poster_id	.\t\main.c	/^static DWORD poster_id;$/;"	v	file:
-prev	.\t\main.c	/^char *prev;$/;"	v
-printf	.\t\neflib.c	/^int __cdecl printf(const char * format, ...)$/;"	f
+rate	.\inc\last.fm.h	/^	char * rate;$/;"	m	struct:lastfm_songinfo
 sb	.\src\last.fm.c	/^struct url sb = {0, 0, 0, 0};$/;"	v	typeref:struct:url
 schar	.\inc\u.h	/^typedef   signed char	schar;$/;"	t
-schar	.\t\u.h	/^typedef   signed char	schar;$/;"	t
-send_now_playing	.\t\last.fm.c	/^uint send_now_playing(struct lastfm_songinfo * s)$/;"	f
-send_submit	.\t\last.fm.c	/^uint send_submit(struct lastfm_songinfo * s)$/;"	f
 server_ip	.\src\http.c	/^uint 	server_ip;$/;"	v
-server_ip	.\t\http.c	/^uint 	server_ip;$/;"	v
 server_port	.\src\http.c	/^ushort	server_port;$/;"	v
-server_port	.\t\http.c	/^ushort	server_port;$/;"	v
 sock	.\src\http.c	/^SOCKET sock;$/;"	v
-sock	.\t\http.c	/^SOCKET sock;$/;"	v
-sprintf	.\t\neflib.c	/^int __cdecl sprintf(char * buf, const char * format, ...)$/;"	f
-src	.\inc\last.fm.h	/^	char src;$/;"	m	struct:lastfm_songinfo
-src	.\t\last.fm.h	/^	char src;$/;"	m	struct:lastfm_songinfo
+src	.\inc\last.fm.h	/^	char * src;$/;"	m	struct:lastfm_songinfo
 srcstr	.\inc\http.h	/^	char * srcstr;$/;"	m	struct:url
-srcstr	.\t\last.fm.h	/^	char * srcstr;$/;"	m	struct:lastfm_url
-strcat	.\t\neflib.h	13;"	d
-strchr	.\t\neflib.c	/^char* strchr(const char *x, int y)$/;"	f
-strcmp	.\t\neflib.h	11;"	d
-strcmpi	.\t\neflib.h	12;"	d
-strcpy	.\t\neflib.h	10;"	d
-strexs	.\t\neflib.c	/^int strexs(char* s1, char* s2) {$/;"	f
-stricmp	.\t\neflib.h	14;"	d
-submit	.\t\last.fm.c	/^struct lastfm_url submit = { 0, 0, 0 };$/;"	v	typeref:struct:lastfm_url
-timestamp	.\t\last.fm.c	/^static char * timestamp() {$/;"	f	file:
-timestamp2	.\t\last.fm.c	/^static uint timestamp2() {$/;"	f	file:
+time	.\inc\last.fm.h	/^	unsigned int time;$/;"	m	struct:lastfm_songinfo
 track	.\inc\last.fm.h	/^	char * track;  \/\/ *$/;"	m	struct:lastfm_songinfo
-track	.\t\last.fm.h	/^	char * track;  \/\/ *$/;"	m	struct:lastfm_songinfo
 u16int	.\inc\u.h	/^typedef unsigned short	u16int;$/;"	t
-u16int	.\t\u.h	/^typedef unsigned short	u16int;$/;"	t
 u32int	.\inc\u.h	/^typedef unsigned int	u32int;$/;"	t
-u32int	.\t\u.h	/^typedef unsigned int	u32int;$/;"	t
 u64int	.\inc\u.h	/^typedef unsigned long long u64int;$/;"	t
-u64int	.\t\u.h	/^typedef unsigned long long u64int;$/;"	t
 u8int	.\inc\u.h	/^typedef unsigned char	u8int;$/;"	t
-u8int	.\t\u.h	/^typedef unsigned char	u8int;$/;"	t
 uchar	.\inc\u.h	/^typedef	unsigned char	uchar;$/;"	t
-uchar	.\t\u.h	/^typedef	unsigned char	uchar;$/;"	t
 uint	.\inc\u.h	/^typedef unsigned int	uint;$/;"	t
-uint	.\t\u.h	/^typedef unsigned int	uint;$/;"	t
 ulong	.\inc\u.h	/^typedef unsigned long	ulong;$/;"	t
-ulong	.\t\u.h	/^typedef unsigned long	ulong;$/;"	t
 url	.\inc\http.h	/^struct url {$/;"	s
 ushort	.\inc\u.h	/^typedef	unsigned short	ushort;$/;"	t
-ushort	.\t\u.h	/^typedef	unsigned short	ushort;$/;"	t
 usize	.\inc\u.h	/^typedef unsigned long	usize;$/;"	t
-usize	.\t\u.h	/^typedef unsigned long	usize;$/;"	t
 uvlong	.\inc\u.h	/^typedef	unsigned long long uvlong;$/;"	t
-uvlong	.\t\u.h	/^typedef	unsigned long long uvlong;$/;"	t
-va_arg	.\t\u.h	60;"	d
-va_end	.\t\u.h	58;"	d
-va_list	.\t\u.h	/^typedef	char*	va_list;$/;"	t
-va_start	.\t\u.h	54;"	d
 vlong	.\inc\u.h	/^typedef	long long	vlong;$/;"	t
-vlong	.\t\u.h	/^typedef	long long	vlong;$/;"	t
 wsa_data	.\src\test.c	/^struct WSAData wsa_data;$/;"	v	typeref:struct:WSAData
-wsa_data	.\t\test.c	/^struct WSAData wsa_data;$/;"	v	typeref:struct:WSAData
 x	.\inc\u.h	/^	double	x;$/;"	m	union:FPdbleword
-x	.\t\u.h	/^	double	x;$/;"	m	union:FPdbleword
 zbuf	.\src\http.c	/^char zbuf[1024]; \/\/ zeroed buff$/;"	v
-zbuf	.\t\http.c	/^char *zbuf; \/\/ zeroed buff$/;"	v
