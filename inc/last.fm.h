@@ -11,6 +11,9 @@
 #define E_EPIC		13	
 #define E_UNKN		666
 
+
+
+
 struct lastfm_songinfo {
 	char * artist; // *
 	char * track;  // *

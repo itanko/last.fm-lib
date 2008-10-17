@@ -1,10 +1,8 @@
 dirs := . inc src
 wcards:= $(addsuffix /*.c, $(dirs))
 
-libs := ws2_32 user32 kernel32
-
 lastfm: $(notdir $(patsubst %.c, %.o, $(wildcard $(wcards))))
-	gcc $^ $(addprefix -l,$(libs)) -o $@ $(addprefix -I, $(dirs)) 
+	ar rs $(addsuffix .a, $(addprefix lib, $@)) $^ 
 
 VPATH := $(dirs)
 
@@ -12,4 +10,4 @@ VPATH := $(dirs)
 	gcc -c $< $(addprefix -I, $(dirs)) -D DEBUG
 
 clean:
-	rm *.o lastfm.exe
+	rm *.o  *.a

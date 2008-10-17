@@ -7,13 +7,18 @@
 
 #include "last.fm.h"
 
+/* MEMORY CONSTRAINTS */
+
 #define MAX_TIMESTAMP_SIZE 64
 #define MAX_AUTH_TOKEN     64
-#define MAX_SUBMIT	   50
 #define MAX_STR		   256
 #define NMEM_SIZE	   1024
 #define ALLOC_QUANT	   1024
 #define REALLOC_DELTA	   512
+
+/* LAST.FM CONTRAINTS */
+
+#define MAX_SUBMIT	   50
 
 #define _chkstr(a,b) b, a ? a : ""
 #define _chkint(a,b) b, a ? _itos(a) : ""
@@ -31,9 +36,34 @@ char * auth_token = 0;
 uint fails = 0;
 uint laste = 0;
 
+char * user = 0;
+char * pass = 0;
+char * client = 0;
+char * cl_ver = 0;
+char * hs_url = 0;
+
 uint handshake();
 uint _handle_handshake();
 uint _handle_std();
+
+uint lfm_init(char * auser, char * apass, char * aclient, char * aver, char * ahs_url) 
+{
+	user = auser;
+
+	pass = apass;
+
+	client = aclient;
+
+	cl_ver = aver;
+
+	if(!ahs_url) {
+		hs_url = "";
+	} else {
+		hs_url = ahs_url;
+	}
+
+	return 0;
+}
 
 char * _itos(uint a)
 {
@@ -98,12 +128,21 @@ uint _lastfm_handleresp(uint cookie)
 	if(strstr(r, "OK")) {
 		return (* (cookie_proto) cookie) ();			
 	} else if (strcmp(r, "BANNED")) {
-	} else if (strcmp(r, "BADSESSION")) {
-		handshake();
+		laste = E_BAN;
 		return 0;
+	} else if (strcmp(r, "BADSESSION")) {
+		if(laste == E_SESS) {
+			return 0;
+		} else {
+			laste = E_SESS;
+	        	return	
+			handshake();
+		}
 	} else if (strcmp(r, "BADAUTH")) {
+		laste = E_AUTH;
 		return 0;
 	} else if (strcmp(r, "BADTIME")) {
+		laste = E_TIME;
 		return 0;
 	}  else {
 		fails++;
@@ -118,21 +157,27 @@ uint handshake()
 {
 	time_t t = time(0);
 
-	char * p = md5("akdpd29");
+	char * p = md5(pass);
 	itoa(t, p + strlen(p), 10);
 	char * h = md5(p);
 
-	strcpy(_chk(&as.srcstr), "http://post.audioscrobbler.com:80/?"); 
+	/*
+	 * hs_url seems always be 
+	 * "http://post.audioscrobbler.com:80/?"
+	 * but let it be pedantic
+         */
+	strcpy(_chk(&as.srcstr), hs_url); 
+
+	return 	
 	httpget(&as, &_lastfm_handleresp, &_handle_handshake, 
 		"hs=true&p=1.2&c=%s&v=%s&u=%s&t=%lu&a=%s",
-		"xmp", "0.1", "itanko_bu", t, h); 
-	return 0;
+		client, cl_ver, user, t, h); 
 }
 
 uint lfm_now_playing(struct lastfm_songinfo * s)
 {
 	if(!auth_token) 
-		handshake();
+		if(!handshake()) { return 0; } 
 
 	return 
 	httpost(&np, &_lastfm_handleresp, &_handle_std,
@@ -171,11 +216,9 @@ uint lfm_submit(struct lastfm_songinfo ** s)
 	int i = 0;
 	
 	if(!auth_token) 
-		handshake();
+		if(!handshake()) { return 0; }
 
 	bp+=sprintf(bp, "s=%s", auth_token);
-
-	printf("++ suth_complete\n");
 		 
    	while(*s) {
 	
@@ -183,7 +226,6 @@ uint lfm_submit(struct lastfm_songinfo ** s)
 			laste = E_OVER;
 			return 0;	
 		}
-		printf("++ iter %i\n", i);
 
 		bp+=snprintf(bp, (buff_sz - ((uint)bp + (uint)buff)),
 			"%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", 
@@ -217,7 +259,7 @@ uint _handle_handshake()
 	strcpy(_chk(&auth_token), httpreadln());
 	strcpy(_chk(&np.srcstr), httpreadln());
 	strcpy(_chk(&sb.srcstr), httpreadln());
-	return 0;
+	return 1;
 }
 
 uint _handle_std() { return 1; }

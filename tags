@@ -4,17 +4,19 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.7	//
+ALLOC_QUANT	.\src\last.fm.c	15;"	d	file:
 BYTE_ORDER	.\src\md5.c	57;"	d	file:
 BYTE_ORDER	.\src\md5.c	59;"	d	file:
 BYTE_ORDER	.\src\md5.c	61;"	d	file:
 E_AUTH	.\inc\last.fm.h	5;"	d
 E_BAN	.\inc\last.fm.h	7;"	d
-E_EPIC	.\inc\last.fm.h	10;"	d
+E_EPIC	.\inc\last.fm.h	11;"	d
 E_FAIL	.\inc\last.fm.h	9;"	d
 E_OK	.\inc\last.fm.h	4;"	d
+E_OVER	.\inc\last.fm.h	10;"	d
 E_SESSION	.\inc\last.fm.h	6;"	d
 E_TIME	.\inc\last.fm.h	8;"	d
-E_UNKN	.\inc\last.fm.h	11;"	d
+E_UNKN	.\inc\last.fm.h	12;"	d
 F	.\src\md5.c	202;"	d	file:
 FPAINEX	.\inc\u.h	39;"	d
 FPAINVAL	.\inc\u.h	43;"	d
@@ -44,8 +46,11 @@ JMPBUFDPC	.\inc\u.h	16;"	d
 JMPBUFPC	.\inc\u.h	15;"	d
 JMPBUFSP	.\inc\u.h	14;"	d
 MAX_AUTH_TOKEN	.\src\last.fm.c	11;"	d	file:
-MAX_STR	.\src\last.fm.c	12;"	d	file:
+MAX_STR	.\src\last.fm.c	13;"	d	file:
+MAX_SUBMIT	.\src\last.fm.c	12;"	d	file:
 MAX_TIMESTAMP_SIZE	.\src\last.fm.c	10;"	d	file:
+NMEM_SIZE	.\src\last.fm.c	14;"	d	file:
+REALLOC_DELTA	.\src\last.fm.c	16;"	d	file:
 ROTATE_LEFT	.\src\md5.c	197;"	d	file:
 Rune	.\inc\u.h	/^typedef	ushort		Rune;$/;"	t
 SET	.\src\md5.c	203;"	d	file:
@@ -122,13 +127,15 @@ T8	.\src\md5.c	72;"	d	file:
 T9	.\src\md5.c	73;"	d	file:
 T_MASK	.\src\md5.c	64;"	d	file:
 _chk	.\src\last.fm.c	/^char * _chk(char ** s)$/;"	f
-_chkint	.\src\last.fm.c	15;"	d	file:
-_chkstr	.\src\last.fm.c	14;"	d	file:
+_chkint	.\src\last.fm.c	19;"	d	file:
+_chkstr	.\src\last.fm.c	18;"	d	file:
 _chkurl	.\src\http.c	/^struct url * _chkurl(struct url ** u)$/;"	f
 _handle_handshake	.\src\last.fm.c	/^uint _handle_handshake()$/;"	f
 _handle_std	.\src\last.fm.c	/^uint _handle_std() { return 1; }$/;"	f
 _http_sendbuff	.\src\http.c	/^uint _http_sendbuff(u, proc, cookie, buff)$/;"	f
+_itos	.\src\last.fm.c	/^char * _itos(uint a)$/;"	f
 _lastfm_handleresp	.\src\last.fm.c	/^uint _lastfm_handleresp(uint cookie) $/;"	f
+_mk_pfx	.\src\last.fm.c	/^char * _mk_pfx(char letter, int idx) $/;"	f
 abcd	.\inc\md5.h	/^    md5_word_t abcd[4];		\/* digest buffer *\/$/;"	m	struct:md5_state_s
 album	.\inc\last.fm.h	/^	char * album;$/;"	m	struct:lastfm_songinfo
 artist	.\inc\last.fm.h	/^	char * artist; \/\/ *$/;"	m	struct:lastfm_songinfo
@@ -150,7 +157,6 @@ httpget	.\src\http.c	/^uint __cdecl httpget(struct url * u, void * proc, uint co
 httpost	.\src\http.c	/^uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...)$/;"	f
 httpreadln	.\src\http.c	/^char * httpreadln() {$/;"	f
 httpskiphdr	.\src\http.c	/^void httpskiphdr() {$/;"	f
-intbuff	.\src\last.fm.c	/^char intbuff[12];$/;"	v
 jmp_buf	.\inc\u.h	/^typedef long		jmp_buf[2];$/;"	t
 laste	.\src\last.fm.c	/^uint laste = 0;$/;"	v
 lastfm_songinfo	.\inc\last.fm.h	/^struct lastfm_songinfo {$/;"	s
@@ -158,8 +164,7 @@ len	.\inc\last.fm.h	/^	unsigned int len;  \/\/ *?$/;"	m	struct:lastfm_songinfo
 lfm_now_playing	.\src\last.fm.c	/^uint lfm_now_playing(struct lastfm_songinfo * s)$/;"	f
 lfm_submit	.\src\last.fm.c	/^uint lfm_submit(struct lastfm_songinfo ** s)$/;"	f
 lo	.\inc\u.h	/^		ulong lo;$/;"	m	struct:FPdbleword::__anon1
-main	.\src\test.c	/^int main() {$/;"	f
-mb_tid	.\inc\last.fm.h	/^	unsigned int mb_tid;$/;"	m	struct:lastfm_songinfo
+mb_tid	.\inc\last.fm.h	/^	char * mb_tid;$/;"	m	struct:lastfm_songinfo
 md5	.\src\last.fm.c	/^static char * md5(char *in)$/;"	f	file:
 md5_INCLUDED	.\inc\md5.h	51;"	d
 md5_append	.\src\md5.c	/^md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes)$/;"	f
@@ -173,6 +178,8 @@ md5_word_t	.\inc\md5.h	/^typedef unsigned int md5_word_t; \/* 32-bit word *\/$/;
 mpdigit	.\inc\u.h	/^typedef unsigned int	mpdigit;	\/* for \/sys\/include\/mp.h *\/$/;"	t
 msgproc_proto	.\inc\http.h	/^typedef unsigned int (*msgproc_proto) (unsigned int);$/;"	t
 nil	.\inc\u.h	1;"	d
+nmem	.\src\last.fm.c	/^char nmem[NMEM_SIZE];$/;"	v
+nmp	.\src\last.fm.c	/^char * nmp = nmem;$/;"	v
 np	.\src\last.fm.c	/^struct url np = {0, 0, 0, 0};$/;"	v	typeref:struct:url
 num	.\inc\last.fm.h	/^	unsigned int num;$/;"	m	struct:lastfm_songinfo
 parse_url	.\src\http.c	/^uint parse_url(struct url * s) {$/;"	f
@@ -200,6 +207,5 @@ ushort	.\inc\u.h	/^typedef	unsigned short	ushort;$/;"	t
 usize	.\inc\u.h	/^typedef unsigned long	usize;$/;"	t
 uvlong	.\inc\u.h	/^typedef	unsigned long long uvlong;$/;"	t
 vlong	.\inc\u.h	/^typedef	long long	vlong;$/;"	t
-wsa_data	.\src\test.c	/^struct WSAData wsa_data;$/;"	v	typeref:struct:WSAData
 x	.\inc\u.h	/^	double	x;$/;"	m	union:FPdbleword
 zbuf	.\src\http.c	/^char zbuf[1024]; \/\/ zeroed buff$/;"	v
