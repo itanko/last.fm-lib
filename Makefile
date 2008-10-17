@@ -7,7 +7,7 @@ lastfm: $(notdir $(patsubst %.c, %.o, $(wildcard $(wcards))))
 VPATH := $(dirs)
 
 %.o: %.c
-	gcc -c $< $(addprefix -I, $(dirs)) -D DEBUG
+	gcc -pedantic -c $< $(addprefix -I, $(dirs)) 
 
 clean:
 	rm *.o  *.a

@@ -36,151 +36,44 @@ char * auth_token = 0;
 uint fails = 0;
 uint laste = 0;
 
-char * user = 0;
-char * pass = 0;
-char * client = 0;
-char * cl_ver = 0;
-char * hs_url = 0;
+struct lfm_creds * creds = 0;
 
 uint handshake();
+char * md5(char *in);
+
+uint _lfm_handleresp(uint cookie);
 uint _handle_handshake();
 uint _handle_std();
 
-uint lfm_init(char * auser, char * apass, char * aclient, char * aver, char * ahs_url) 
+char * _mk_pfx(char letter, int idx);
+char * _itos(uint a);
+char * _chk(char ** s);
+
+uint lfm_init(struct lfm_creds * a) 
 {
-	user = auser;
-
-	pass = apass;
-
-	client = aclient;
-
-	cl_ver = aver;
-
-	if(!ahs_url) {
-		hs_url = "";
-	} else {
-		hs_url = ahs_url;
+	if(!a) {
+		laste = E_CREDS;
+		return 0;
 	}
+	
+	creds = a;
+
+	if(!creds->hs_url) {
+		creds->hs_url 
+		= 
+		"http://post.audioscrobbler.com:80/?";
+	} 
 
 	return 0;
 }
 
-char * _itos(uint a)
-{
-	char * r;
-
-	if((nmp + 10 - nmem) > NMEM_SIZE) {
-		nmp = nmem;
-	}
-	
-	r = nmp;
- 
-	nmp+= 1 + sprintf(nmp, "%i", a);
-	
-	return r;
-}
-
-char * _chk(char ** s)
-{
-	if(!*s) {
-		*s = malloc(MAX_STR);
-		memset(*s, 0, MAX_STR);
-	}
-
-	return *s;
-}
-
-static char * md5(char *in)
-{
-  #ifdef DEBUG
-  	printf("md5 in: %s (%i)\n", in, strlen (in));
-  #endif
-  md5_state_t md5state;
-  unsigned char md5result[16];
-  char *tmp;
-  int i;
-  char a[3];
-
-  if (!strlen(in))
-    return NULL;
-
-  md5_init (&md5state);
-  md5_append (&md5state, (unsigned const char *) in, (int) strlen (in));
-  md5_finish (&md5state, md5result);
-
-  tmp = (char *) malloc (255);
-  memset(tmp, 0, 255);
-
-  for (i = 0;i < 0x10; i++)
-    {
-      sprintf(a, "%02x", md5result[i]);
-      tmp[(i<<1)] = a[0];
-      tmp[(i<<1)+1] = a[1];
-    }
-
-  return tmp;
-}
-
-uint _lastfm_handleresp(uint cookie) 
-{
-	httpskiphdr();
-	char * r = httpreadln();
-	if(strstr(r, "OK")) {
-		return (* (cookie_proto) cookie) ();			
-	} else if (strcmp(r, "BANNED")) {
-		laste = E_BAN;
-		return 0;
-	} else if (strcmp(r, "BADSESSION")) {
-		if(laste == E_SESS) {
-			return 0;
-		} else {
-			laste = E_SESS;
-	        	return	
-			handshake();
-		}
-	} else if (strcmp(r, "BADAUTH")) {
-		laste = E_AUTH;
-		return 0;
-	} else if (strcmp(r, "BADTIME")) {
-		laste = E_TIME;
-		return 0;
-	}  else {
-		fails++;
-		if((fails % 4) == 3) {
-			handshake();
-		}
-		return 0;
-	}
-}
-
-uint handshake() 
-{
-	time_t t = time(0);
-
-	char * p = md5(pass);
-	itoa(t, p + strlen(p), 10);
-	char * h = md5(p);
-
-	/*
-	 * hs_url seems always be 
-	 * "http://post.audioscrobbler.com:80/?"
-	 * but let it be pedantic
-         */
-	strcpy(_chk(&as.srcstr), hs_url); 
-
-	return 	
-	httpget(&as, &_lastfm_handleresp, &_handle_handshake, 
-		"hs=true&p=1.2&c=%s&v=%s&u=%s&t=%lu&a=%s",
-		client, cl_ver, user, t, h); 
-}
-
-uint lfm_now_playing(struct lastfm_songinfo * s)
+uint lfm_now_playing(struct lfm_songinfo * s)
 {
 	if(!auth_token) 
 		if(!handshake()) { return 0; } 
 
 	return 
-	httpost(&np, &_lastfm_handleresp, &_handle_std,
+	httpost(&np, &_lfm_handleresp, (uint)&_handle_std,
 		 "s=%s%s%s%s%s%s%s%s%s%s%s%s%s", 
 	           auth_token,
 		   _chkstr(s->artist, "&a="),
@@ -188,32 +81,21 @@ uint lfm_now_playing(struct lastfm_songinfo * s)
 		   _chkstr(s->album, "&b="),
 		   _chkint(s->len, "&l="),
 		   _chkint(s->num, "&n="),
-		   _chkint(s->mb_tid, "&m=")
+		   _chkstr(s->mb_tid, "&m=")
 		   );	
 }
 
-char * _mk_pfx(char letter, int idx) 
+uint lfm_submit(struct lfm_songinfo ** s)
 {
-	char * r;
-
-	if((nmp + 10 - nmem) > NMEM_SIZE) {
-		nmp = nmem;
-	}
-
-	r = nmp;
-
-	nmp+= 1 + sprintf(nmp,"&%c[%i]=", letter, idx);
-
-	return r;
-}
-
-uint lfm_submit(struct lastfm_songinfo ** s)
-{
-	uint buff_sz = ALLOC_QUANT;
-	char * buff = malloc(buff_sz); *buff=0; 
-	char * bp = buff;
-
-	int i = 0;
+	uint buff_sz;
+	char * buff; 
+	char * bp;
+	int i;
+	
+	buff_sz = ALLOC_QUANT;
+	buff = malloc(buff_sz); *buff = 0;
+	bp = buff;
+	i = 0;
 	
 	if(!auth_token) 
 		if(!handshake()) { return 0; }
@@ -250,8 +132,97 @@ uint lfm_submit(struct lastfm_songinfo ** s)
 	
 
 	return
-	httpost(&sb, &_lastfm_handleresp, &_handle_std, buff);
+	httpost(&sb, &_lfm_handleresp, (uint)&_handle_std, buff);
 
+}
+
+uint handshake() 
+{
+	time_t t;
+
+	char * p;
+	char * h;
+
+	t = time(0); p = md5(creds->pass);
+	itoa(t, p + strlen(p), 10);
+	h = md5(p);
+
+	/*
+	 * hs_url seems always be 
+	 * "http://post.audioscrobbler.com:80/?"
+	 * but let it be pedantic
+         */
+	strcpy(_chk(&as.srcstr), creds->hs_url); 
+
+	return 	
+	httpget(&as, &_lfm_handleresp, (uint)&_handle_handshake, 
+		"hs=true&p=1.2&c=%s&v=%s&u=%s&t=%lu&a=%s",
+		creds->client, creds->cl_ver, creds->user, t, h); 
+}
+
+char * md5(char *in)
+{
+  #ifdef DEBUG
+  	printf("md5 in: %s (%i)\n", in, strlen (in));
+  #endif
+  md5_state_t md5state;
+  unsigned char md5result[16];
+  char *tmp;
+  int i;
+  char a[3];
+
+  if (!strlen(in))
+    return NULL;
+
+  md5_init (&md5state);
+  md5_append (&md5state, (unsigned const char *) in, (int) strlen (in));
+  md5_finish (&md5state, md5result);
+
+  tmp = (char *) malloc (255);
+  memset(tmp, 0, 255);
+
+  for (i = 0;i < 0x10; i++)
+    {
+      sprintf(a, "%02x", md5result[i]);
+      tmp[(i<<1)] = a[0];
+      tmp[(i<<1)+1] = a[1];
+    }
+
+  return tmp;
+}
+
+uint _lfm_handleresp(uint cookie) 
+{
+	char * r;
+
+	httpskiphdr();
+	r = httpreadln();
+	if(strstr(r, "OK")) {
+		return (* (cookie_proto) cookie) ();			
+	} else if (strcmp(r, "BANNED")) {
+		laste = E_BAN;
+		return 0;
+	} else if (strcmp(r, "BADSESSION")) {
+		if(laste == E_SESS) {
+			return 0;
+		} else {
+			laste = E_SESS;
+	        	return	
+			handshake();
+		}
+	} else if (strcmp(r, "BADAUTH")) {
+		laste = E_AUTH;
+		return 0;
+	} else if (strcmp(r, "BADTIME")) {
+		laste = E_TIME;
+		return 0;
+	}  else {
+		fails++;
+		if((fails % 4) == 3) {
+			handshake();
+		}
+		return 0;
+	}
 }
 
 uint _handle_handshake()
@@ -263,3 +234,43 @@ uint _handle_handshake()
 }
 
 uint _handle_std() { return 1; }
+
+char * _mk_pfx(char letter, int idx) 
+{
+	char * r;
+
+	if((nmp + 10 - nmem) > NMEM_SIZE) {
+		nmp = nmem;
+	}
+
+	r = nmp;
+
+	nmp+= 1 + sprintf(nmp,"&%c[%i]=", letter, idx);
+
+	return r;
+}
+
+char * _itos(uint a)
+{
+	char * r;
+
+	if((nmp + 10 - nmem) > NMEM_SIZE) {
+		nmp = nmem;
+	}
+	
+	r = nmp;
+ 
+	nmp+= 1 + sprintf(nmp, "%i", a);
+	
+	return r;
+}
+
+char * _chk(char ** s)
+{
+	if(!*s) {
+		*s = malloc(MAX_STR);
+		memset(*s, 0, MAX_STR);
+	}
+
+	return *s;
+}

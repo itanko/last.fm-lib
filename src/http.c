@@ -7,7 +7,7 @@
 SOCKET sock;
 
 char buff[1024];
-char zbuf[1024]; // zeroed buff
+char zbuf[1024]; /* zeroed buff */
 
 char * host;
 
@@ -15,10 +15,13 @@ uint 	server_ip;
 ushort	server_port;
 
 uint parse_url(struct url * s) {
+	char * p;
+	char * n;
+
 	s->host = strstr(s->srcstr, "://") + 3;
-	char * p = s->host;
+	p = s->host;
 	while(*p != ':') { p++; } *p = 0;
-	char * n = ++p;
+	n = ++p;
 	while(*p != '/') { p++; } *p = 0;
 	s->port = atoi(n);
 	s->path = ++p;
@@ -40,23 +43,26 @@ int httpconnect(char * server, int port)
 {
 	uint res;
 
+	struct hostent * h;
+	struct sockaddr_in adr;
+
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if((sock == INVALID_SOCKET) | (sock == 0)) {
 		printf("socket() error %i\n", WSAGetLastError());
 		return;
 	}
 
-	struct hostent *h = gethostbyname(server);
+	h = gethostbyname(server);
 	server_ip = *(DWORD*)h->h_addr_list[0];
 	server_port = port;
 
-	struct sockaddr_in adr = {AF_INET};
+	adr.sin_family = AF_INET;
 	adr.sin_port = htons(server_port);
 	adr.sin_addr.s_addr = server_ip;
 
 	for(;;) {
 		res = connect(sock,
-	 			      (struct sockaddr_in*)&adr,
+	 			      (struct sockaddr *)&adr,
 				      16);
 		if(res == SOCKET_ERROR) {
 			printf("connect() error %i (IP=%i:%i)\n",
@@ -77,7 +83,10 @@ void httpclose() {
 }
 
 char * httpreadln() {
+	
 	uint recvd;
+	char * c;
+
 	*buff = 0;
 	for(;;) {
 		recvd = recv(sock, buff, 1024, MSG_PEEK);
@@ -91,7 +100,7 @@ char * httpreadln() {
 			return buff;
 		}
 	}
-	char *c = strchr(buff, '\n');
+	c = strchr(buff, '\n');
 	if (c) c++;
 	if (c)
 	{
@@ -106,16 +115,18 @@ char * httpreadln() {
 
 uint _http_sendbuff(u, proc, cookie, buff)
 struct url * u;
-void * proc;
+msgproc_proto proc;
 uint cookie;
 char * buff; 
 {
+	uint r;
+
 	httpconnect(u->host, u->port);
 	send(sock, buff, strlen(buff), 0);
 	#ifdef DEBUG
 		printf("Sent: %s\n", buff);
 	#endif
-        uint r = (* (msgproc_proto) proc) (cookie);
+        r = proc (cookie);
 	httpclose();
 	return r;
 }
@@ -126,7 +137,7 @@ void httpskiphdr() {
 	while(*httpreadln() != 13) {}
 }
 
-uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...)
+uint __cdecl httpost(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...)
 {
     uint result;
     va_list argptr;
@@ -142,7 +153,7 @@ uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * form
     return _http_sendbuff(u, proc, cookie, zbuf);
 }
 
-uint __cdecl httpget(struct url * u, void * proc, uint cookie, const char * format, ...)
+uint __cdecl httpget(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...)
 {
     uint result;
     va_list argptr;

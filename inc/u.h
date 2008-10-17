@@ -4,8 +4,6 @@ typedef	unsigned char	uchar;
 typedef unsigned long	ulong;
 typedef unsigned int	uint;
 typedef   signed char	schar;
-typedef	long long	vlong;
-typedef	unsigned long long uvlong;
 typedef void * handle;
 typedef unsigned long	usize;
 typedef	ushort		Rune;
@@ -18,7 +16,6 @@ typedef unsigned int	mpdigit;	/* for /sys/include/mp.h */
 typedef unsigned char	u8int;
 typedef unsigned short	u16int;
 typedef unsigned int	u32int;
-typedef unsigned long long u64int;
 
 /* FCR */
 #define	FPINEX	(1<<5)
@@ -41,11 +38,3 @@ typedef unsigned long long u64int;
 #define	FPAUNFL	FPUNFL
 #define	FPAZDIV	FPZDIV
 #define	FPAINVAL	FPINVAL
-union FPdbleword
-{
-	double	x;
-	struct {	/* little endian */
-		ulong lo;
-		ulong hi;
-	};
-};

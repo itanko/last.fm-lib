@@ -10,5 +10,5 @@ typedef unsigned int (*msgproc_proto) (unsigned int);
 
 void httpskiphdr();
 char * httpreadln();
-uint __cdecl httpost(struct url * u, void * proc, uint cookie, const char * format, ...);
-uint __cdecl httpget(struct url * u, void * proc, uint cookie, const char * format, ...);
+uint __cdecl httpost(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...);
+uint __cdecl httpget(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...);
