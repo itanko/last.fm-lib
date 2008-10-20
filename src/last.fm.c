@@ -1,4 +1,14 @@
+
+#ifdef WIN32
 #include <windows.h>
+#endif
+
+#ifdef LINUX
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#endif
+
 #include <time.h>
 
 #include "u.h"

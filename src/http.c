@@ -10,8 +10,10 @@
 #endif
 
 #ifdef LINUX
+#include <errno.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
@@ -116,7 +118,12 @@ char * httpreadln() {
 		if((recvd != 0 ) & (recvd != -1)) break;
 		recvd = WSAGetLastError();
 		if (recvd == 0) recvd = 1;
+#ifdef WIN32
 		if(recvd != WSAEWOULDBLOCK)
+#endif
+#ifdef LINUX
+		if(recvd != EAGAIN && recvd != EINPROGRESS)
+#endif
 		{
 			printf("recv() error %i\n", recvd);
 			return buff;
