@@ -1,4 +1,8 @@
 
+#ifdef LINUX
+#define __cdecl __attribute__((__cdecl__))
+#endif
+
 struct url {
 	char * srcstr;
 	char * host;

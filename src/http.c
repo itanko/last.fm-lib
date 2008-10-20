@@ -1,8 +1,30 @@
+#ifdef LINUX
+	#undef WIN32
+#else
+	#define WIN32
+#endif
+
+#ifdef WIN32
 #include <windows.h>
-#include <winsock.h>
+#include <winsock.h> 
+#endif
+
+#ifdef LINUX
+#include <string.h>
+#include <stdarg.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#endif
 
 #include "u.h"
 #include "http.h"
+
+#ifdef LINUX
+#define SOCKET int
+#define closesocket close
+#endif
 
 SOCKET sock;
 
@@ -47,13 +69,13 @@ int httpconnect(char * server, int port)
 	struct sockaddr_in adr;
 
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if((sock == INVALID_SOCKET) | (sock == 0)) {
+	if((sock == -1) | (sock == 0)) {
 		printf("socket() error %i\n", WSAGetLastError());
 		return;
 	}
 
 	h = gethostbyname(server);
-	server_ip = *(DWORD*)h->h_addr_list[0];
+	server_ip = *(uint*)h->h_addr_list[0];
 	server_port = port;
 
 	adr.sin_family = AF_INET;
@@ -64,7 +86,7 @@ int httpconnect(char * server, int port)
 		res = connect(sock,
 	 			      (struct sockaddr *)&adr,
 				      16);
-		if(res == SOCKET_ERROR) {
+		if(res == -1) {
 			printf("connect() error %i (IP=%i:%i)\n",
 				WSAGetLastError(),
 				server_ip,
@@ -91,7 +113,7 @@ char * httpreadln() {
 	for(;;) {
 		recvd = recv(sock, buff, 1024, MSG_PEEK);
 		printf("recvd: %i\n", recvd);
-		if((recvd != 0 ) & (recvd != SOCKET_ERROR)) break;
+		if((recvd != 0 ) & (recvd != -1)) break;
 		recvd = WSAGetLastError();
 		if (recvd == 0) recvd = 1;
 		if(recvd != WSAEWOULDBLOCK)
