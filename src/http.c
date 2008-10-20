@@ -1,9 +1,3 @@
-#ifdef LINUX
-	#undef WIN32
-#else
-	#define WIN32
-#endif
-
 #ifdef WIN32
 #include <windows.h>
 #include <winsock.h> 
@@ -49,9 +43,6 @@ uint parse_url(struct url * s) {
 	while(*p != '/') { p++; } *p = 0;
 	s->port = atoi(n);
 	s->path = ++p;
-	#ifdef DEBUG
-		printf("%s, %i, %s\n", s->host, s->port, s->path);
-	#endif
 	return 0;
 }
 
@@ -72,7 +63,7 @@ int httpconnect(char * server, int port)
 
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if((sock == -1) | (sock == 0)) {
-		printf("socket() error %i\n", WSAGetLastError());
+		printf("socket() error %i\n", errno);
 		return;
 	}
 
@@ -90,7 +81,7 @@ int httpconnect(char * server, int port)
 				      16);
 		if(res == -1) {
 			printf("connect() error %i (IP=%i:%i)\n",
-				WSAGetLastError(),
+				errno,
 				server_ip,
 				server_port);
 			continue;
@@ -116,7 +107,7 @@ char * httpreadln() {
 		recvd = recv(sock, buff, 1024, MSG_PEEK);
 		printf("recvd: %i\n", recvd);
 		if((recvd != 0 ) & (recvd != -1)) break;
-		recvd = WSAGetLastError();
+		recvd = errno;
 		if (recvd == 0) recvd = 1;
 #ifdef WIN32
 		if(recvd != WSAEWOULDBLOCK)
@@ -136,9 +127,6 @@ char * httpreadln() {
 		recv(sock, buff, c - buff, 0);
 		*(c-1) = 0;
 	}
-	#ifdef DEBUG
-		printf("Received: %s\n", buff);
-	#endif
 	return buff;
 }
 
@@ -166,7 +154,11 @@ void httpskiphdr() {
 	while(*httpreadln() != 13) {}
 }
 
-uint __cdecl httpost(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...)
+uint __cdecl httpost(struct url * u, 
+		     msgproc_proto proc, 
+		     uint cookie, 
+		     const char * format, 
+		     ...)
 {
     uint result;
     va_list argptr;
@@ -177,12 +169,21 @@ uint __cdecl httpost(struct url * u, msgproc_proto proc, uint cookie, const char
 
     _chkurl(&u);
 
-    result = sprintf( zbuf, "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\nContent-Type: application/x-www-form-urlencoded\n\n%s\n\n", u->path, u->host, strlen(buff), buff);
+    result = sprintf(zbuf, 
+    		     "POST /%s HTTP/1.1\nHost: %s\nContent-Length: %i\nContent-Type: application/x-www-form-urlencoded\n\n%s\n\n", 
+		     u->path, 
+		     u->host, 
+		     strlen(buff), 
+		     buff);
 
     return _http_sendbuff(u, proc, cookie, zbuf);
 }
 
-uint __cdecl httpget(struct url * u, msgproc_proto proc, uint cookie, const char * format, ...)
+uint __cdecl httpget(struct url * u, 
+		     msgproc_proto proc, 
+		     uint cookie, 
+		     const char * format, 
+		     ...)
 {
     uint result;
     va_list argptr;
@@ -193,7 +194,11 @@ uint __cdecl httpget(struct url * u, msgproc_proto proc, uint cookie, const char
 
     _chkurl(&u);
 
-    result = sprintf( zbuf, "GET /%s%s HTTP/1.1\nHost: %s\n\n", u->path, buff, u->host);
+    result = sprintf(zbuf, 
+    		     "GET /%s%s HTTP/1.1\nHost: %s\n\n", 
+		     u->path, 
+		     buff, 
+		     u->host);
 
     return _http_sendbuff(u, proc, cookie, zbuf);
 }
