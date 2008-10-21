@@ -38,3 +38,9 @@ typedef unsigned int	u32int;
 #define	FPAUNFL	FPUNFL
 #define	FPAZDIV	FPZDIV
 #define	FPAINVAL	FPINVAL
+
+#ifdef DEBUG
+#define dbg(msg) printf("%s:%u: debug: %s\n", __FILE__, __LINE__, msg)
+#else
+#define dbg(msg) 
+#endif

@@ -65,6 +65,8 @@ uint lfm_init(struct lfm_creds * a)
 		laste = E_CREDS;
 		return 0;
 	}
+
+	*nmem = 0;
 	
 	creds = a;
 
@@ -95,7 +97,7 @@ uint lfm_now_playing(struct lfm_songinfo * s)
 		   );	
 }
 
-uint lfm_submit(struct lfm_songinfo ** s)
+uint lfm_submit(struct lfm_songinfo * s[])
 {
 	uint buff_sz;
 	char * buff; 
@@ -111,35 +113,36 @@ uint lfm_submit(struct lfm_songinfo ** s)
 		if(!handshake()) { return 0; }
 
 	bp+=sprintf(bp, "s=%s", auth_token);
-		 
-   	while(*s) {
+
+   	while(s[i]) { 
 	
 		if(i>MAX_SUBMIT) {
 			laste = E_OVER;
 			return 0;	
 		}
 
-		bp+=snprintf(bp, (buff_sz - ((uint)bp + (uint)buff)),
+		bp+=snprintf(bp,  (buff_sz - ((uint)bp - (uint)buff)),
 			"%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", 
-		   	_chkstr((*s)->artist, _mk_pfx('a', i)),
-		   	_chkstr((*s)->track, _mk_pfx('t', i)),
-		   	_chkint((*s)->time, _mk_pfx('i', i)),
-		   	_chkstr((*s)->src, _mk_pfx('o', i)),
-		   	_chkstr((*s)->rate, _mk_pfx('r', i)),
-		   	_chkstr((*s)->album, _mk_pfx('b', i)),
-		   	_chkint((*s)->len, _mk_pfx('l', i)),
-		   	_chkint((*s)->num, _mk_pfx('n', i)),
-		   	_chkstr((*s)->mb_tid, _mk_pfx('m', i)) 
+		   	_chkstr(s[i]->artist, _mk_pfx('a', i)),
+		   	_chkstr(s[i]->track, _mk_pfx('t', i)),
+		   	_chkint(s[i]->time, _mk_pfx('i', i)),
+		   	_chkstr(s[i]->src, _mk_pfx('o', i)),
+		   	_chkstr(s[i]->rate, _mk_pfx('r', i)),
+		   	_chkstr(s[i]->album, _mk_pfx('b', i)),
+		   	_chkint(s[i]->len, _mk_pfx('l', i)),
+		   	_chkint(s[i]->num, _mk_pfx('n', i)),
+		   	_chkstr(s[i]->mb_tid, _mk_pfx('m', i)) 
 		   );
-	
+
 		if((bp + REALLOC_DELTA - buff) > buff_sz) {
 			buff = realloc(buff, buff_sz + ALLOC_QUANT);
 		}
 
-		s++; i++;
-	}
+		i++;
+		
+	} 
 
-	
+	dbg(buff);	
 
 	return
 	httpost(&sb, &_lfm_handleresp, (uint)&_handle_std, buff);
@@ -153,8 +156,13 @@ uint handshake()
 	char * p;
 	char * h;
 
+	if(!creds) {
+		laste = E_CREDS;
+		return 0;
+	}
+
 	t = time(0); p = md5(creds->pass);
-	itoa(t, p + strlen(p), 10);
+	sprintf(p + strlen(p), "%d", t);
 	h = md5(p);
 
 	/*
@@ -207,6 +215,9 @@ uint _lfm_handleresp(uint cookie)
 
 	httpskiphdr();
 	r = httpreadln();
+	
+	dbg(r);
+	
 	if(strstr(r, "OK")) {
 		return (* (cookie_proto) cookie) ();			
 	} else if (strcmp(r, "BANNED")) {

@@ -22,10 +22,14 @@
 #define closesocket close
 #endif
 
+#ifdef WIN32
+#define vsprintf wvsprintf
+#endif
+
 SOCKET sock;
 
 char buff[1024];
-char zbuf[1024]; /* zeroed buff */
+char zbuf[4096]; /* zeroed buff */
 
 char * host;
 
@@ -105,7 +109,6 @@ char * httpreadln() {
 	*buff = 0;
 	for(;;) {
 		recvd = recv(sock, buff, 1024, MSG_PEEK);
-		printf("recvd: %i\n", recvd);
 		if((recvd != 0 ) & (recvd != -1)) break;
 		recvd = errno;
 		if (recvd == 0) recvd = 1;
@@ -164,7 +167,7 @@ uint __cdecl httpost(struct url * u,
     va_list argptr;
 
     va_start( argptr, format );
-    result = wvsprintf( buff, format, argptr );
+    result = vsprintf( buff, format, argptr );
     va_end( argptr );
 
     _chkurl(&u);
@@ -189,7 +192,7 @@ uint __cdecl httpget(struct url * u,
     va_list argptr;
 
     va_start( argptr, format );
-    result = wvsprintf( buff, format, argptr );
+    result = vsprintf( buff, format, argptr );
     va_end( argptr );
 
     _chkurl(&u);
